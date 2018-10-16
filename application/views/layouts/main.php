@@ -19,6 +19,9 @@
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="<?php echo site_url('resources/css/_all-skins.min.css');?>">
+        <script type="text/javascript">
+            var baseurl = '<?php echo base_url() ?>';
+        </script>
     </head>
     
     <body class="hold-transition skin-blue sidebar-mini">
@@ -176,6 +179,7 @@
         <script src="<?php echo site_url('resources/js/app.min.js');?>"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="<?php echo site_url('resources/js/demo.js');?>"></script>
+        <script src="<?php echo site_url('resources/js/crm.js');?>"></script>
         <!-- DatePicker -->
         <script src="<?php echo site_url('resources/js/moment.js');?>"></script>
         <script src="<?php echo site_url('resources/js/bootstrap-datetimepicker.min.js');?>"></script>
