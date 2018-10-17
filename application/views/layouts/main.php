@@ -19,6 +19,9 @@
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="<?php echo site_url('resources/css/_all-skins.min.css');?>">
+        <script type="text/javascript">
+            var baseurl = '<?php echo base_url() ?>';
+        </script>
     </head>
     
     <body class="hold-transition skin-blue sidebar-mini">
@@ -27,9 +30,9 @@
                 <!-- Logo -->
                 <a href="" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
-                    <span class="logo-mini">cablecrm</span>
+                    <span class="logo-mini">CRM</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg">cablecrm</span>
+                    <span class="logo-lg">CRM</span>
                 </a>
                 <!-- Header Navbar: style can be found in header.less -->
                 <nav class="navbar navbar-static-top">
@@ -47,7 +50,7 @@
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="<?php echo site_url('resources/img/user2-160x160.jpg');?>" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">Alexander Pierce</span>
+                                    <span class="hidden-xs">Admin</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
@@ -55,8 +58,8 @@
                                         <img src="<?php echo site_url('resources/img/user2-160x160.jpg');?>" class="img-circle" alt="User Image">
 
                                     <p>
-                                        Alexander Pierce - Web Developer
-                                        <small>Member since Nov. 2012</small>
+                                        Admin - Web Developer
+                                        
                                     </p>
                                     </li>
                                     <!-- Menu Footer-->
@@ -84,7 +87,7 @@
                             <img src="<?php echo site_url('resources/img/user2-160x160.jpg');?>" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p>Alexander Pierce</p>
+                            <p>Admin</p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
@@ -176,6 +179,7 @@
         <script src="<?php echo site_url('resources/js/app.min.js');?>"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="<?php echo site_url('resources/js/demo.js');?>"></script>
+        <script src="<?php echo site_url('resources/js/crm.js');?>"></script>
         <!-- DatePicker -->
         <script src="<?php echo site_url('resources/js/moment.js');?>"></script>
         <script src="<?php echo site_url('resources/js/bootstrap-datetimepicker.min.js');?>"></script>

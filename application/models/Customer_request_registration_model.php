@@ -53,4 +53,8 @@ class Customer_request_registration_model extends CI_Model
     {
         return $this->db->delete('customer_request_registration',array('id'=>$id));
     }
+    function updateItems($table,$params,$where)
+    {
+        return $this->db->update($table,$params,$where);
+    }
 }
