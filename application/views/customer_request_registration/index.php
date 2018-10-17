@@ -17,7 +17,8 @@
 						<th>Location</th>
 						<th>Plans</th>
 						<th>Commets</th>
-						<th>Actions</th>
+                        <th>Actions</th>
+						<th>Assign</th>
                     </tr>
                     <?php foreach($customer_request_registration as $c){ ?>
                     <tr>
@@ -31,7 +32,49 @@
 						<td>
                             <a href="<?php echo site_url('customer_request_registration/edit/'.$c['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
                             <a href="<?php echo site_url('customer_request_registration/remove/'.$c['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+
+                            
+                            
+
                         </td>
+                        <td>
+                            <?php 
+                            if($c['operator_id'] =="")
+                            {
+                            ?>
+                                <div class="form-group">
+                                    <select name="lco_location" class="form-control assignOperator" id="">
+                                        <option value="">select</option>
+                                        <?php 
+                                        if(@sizeOf($operators) > 0)
+                                        {
+                                            for ($o=0; $o < sizeOf($operators); $o++) { 
+                                                if($operators[$o]['id'] == $c['operator_id'])
+                                                {
+                                                    $opSel = "selected";
+                                                }
+                                                else
+                                                {
+                                                    $opSel = "";
+                                                }
+                                            ?>
+                                                 <option <?php echo @$opSel ?> value="<?php echo $operators[$o]['id']."_".$c['id']; ?>"><?php echo $operators[$o]['lco_name']; ?></option>
+                                            <?php
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                    <span class="text-danger"><?php echo form_error('lco_location');?></span>
+                                </div>
+                            <?php 
+                            }
+                            else
+                            {
+                                echo "Assigned";
+                            }
+                            ?>
+                        </td>
+
                     </tr>
                     <?php } ?>
                 </table>

@@ -25,6 +25,7 @@
 						<td>
                             <a href="<?php echo site_url('operator/edit/'.$o['id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
                             <a href="<?php echo site_url('operator/remove/'.$o['id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                            
                         </td>
                     </tr>
                     <?php } ?>

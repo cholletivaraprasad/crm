@@ -16,6 +16,9 @@ class Customer_request_registration extends CI_Controller{
      */
     function index()
     {
+        $this->load->model('Operator_model');
+        $data['operators'] = $this->Operator_model->get_all_operators();
+        $data['customer_request_registration'] = $this->Customer_request_registration_model->get_all_customer_request_registration();
         $data['customer_request_registration'] = $this->Customer_request_registration_model->get_all_customer_request_registration();
         
         $data['_view'] = 'customer_request_registration/index';
@@ -115,6 +118,17 @@ class Customer_request_registration extends CI_Controller{
         }
         else
             show_error('The customer_request_registration you are trying to delete does not exist.');
+    }
+    function assigning($operatorId)
+    {
+        if($operatorId != "")
+        {
+            $expld = explode("_", $operatorId);
+            $operator_id = $expld[0];
+            $customer_id = $expld[1];
+            $params = array("operator_id"=>$operator_id);
+            $update = $this->Customer_request_registration_model->updateItems("customer_request_registration",$params,array("id"=>$customer_id));
+        }
     }
     
 }
