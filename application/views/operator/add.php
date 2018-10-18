@@ -8,49 +8,40 @@
           	<div class="box-body">
           		<div class="row clearfix">
 					<div class="col-md-6">
-						<label for="lco_location" class="control-label"><span class="text-danger">*</span>Lco Location</label>
+						<label for="lco_state" class="control-label"><span class="text-danger">*</span>Lco State</label>
 						<div class="form-group">
-							<select name="lco_location" class="form-control">
-								<option value="">select</option>
+							<select name="lco_state" class="form-control" id="lco_state">
+								<option value="">Select State</option>
 								<?php 
-								$lco_location_values = array(
-									'Hyderabad' => 'Hyderabad',
-									'Secundrabad' => 'Secundrabad',
-									'Vijayawada' => 'Vijayawada	'
-								);
-
-								foreach($lco_location_values as $value => $display_text)
+								if(@sizeOf($statesList) > 0)
 								{
-									$selected = ($value == $this->input->post('lco_location')) ? ' selected="selected"' : "";
-
-									echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
-								} 
+									for ($s=0; $s < sizeOf($statesList); $s++) 
+									{ 
+									?>
+										<option value="<?php echo @$statesList[$s]->state_name; ?>"><?php echo @$statesList[$s]->state_name; ?></option>
+									<?php
+									}
+								}
 								?>
 							</select>
-							<span class="text-danger"><?php echo form_error('lco_location');?></span>
+							<span class="text-danger"><?php echo form_error('lco_state');?></span>
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="lco_sublocation" class="control-label"><span class="text-danger">*</span>Lco Sublocation</label>
+						<label for="lco_city" class="control-label"><span class="text-danger">*</span>Lco City</label>
 						<div class="form-group">
-							<select name="lco_sublocation" class="form-control">
-								<option value="">select</option>
-								<?php 
-								$lco_sublocation_values = array(
-									'Begumpet' => 'Begumpet',
-									'Shameerpet' => 'Shameerpet',
-									'Nacharam' => 'Nacharam'
-								);
+							<select name="lco_city" class="form-control" id="lco_city">
+								<option value="">Select City</option>
 
-								foreach($lco_sublocation_values as $value => $display_text)
-								{
-									$selected = ($value == $this->input->post('lco_sublocation')) ? ' selected="selected"' : "";
-
-									echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
-								} 
-								?>
 							</select>
-							<span class="text-danger"><?php echo form_error('lco_sublocation');?></span>
+							<span class="text-danger"><?php echo form_error('lco_city');?></span>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="lco_location" class="control-label"><span class="text-danger">*</span>Lco Location</label>
+						<div class="form-group">
+							<input type="text" name="lco_location" value="<?php echo $this->input->post('lco_location'); ?>" class="form-control" id="lco_location" />
+							<span class="text-danger"><?php echo form_error('lco_location');?></span>
 						</div>
 					</div>
 					<div class="col-md-6">

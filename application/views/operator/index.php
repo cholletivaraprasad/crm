@@ -11,7 +11,8 @@
                 <table class="table table-striped">
                     <tr>
 						<th>ID</th>
-						<th>Lco Location</th>
+                        <th>Lco State</th>
+						<th>Lco City</th>
 						<th>Lco Sublocation</th>
 						<th>Lco Name</th>
 						<th>Actions</th>
@@ -19,6 +20,7 @@
                     <?php foreach($operators as $o){ ?>
                     <tr>
 						<td><?php echo $o['id']; ?></td>
+                        <td><?php echo $o['lco_state']; ?></td>
 						<td><?php echo $o['lco_location']; ?></td>
 						<td><?php echo $o['lco_sublocation']; ?></td>
 						<td><?php echo $o['lco_name']; ?></td>

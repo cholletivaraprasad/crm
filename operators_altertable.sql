@@ -1,0 +1,1 @@
+ALTER TABLE `operators` ADD `lco_state` VARCHAR(100) NULL DEFAULT NULL AFTER `lco_name`;

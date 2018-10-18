@@ -58,7 +58,7 @@
                                         <img src="<?php echo site_url('resources/img/user2-160x160.jpg');?>" class="img-circle" alt="User Image">
 
                                     <p>
-                                        Admin
+                                        Admin - Web Developer
                                         
                                     </p>
                                     </li>
@@ -112,18 +112,21 @@
                                 </li>
 							</ul>
                             <li>
-                            <a href="#">
-                                <i class="fa fa-desktop"></i> <span>Operator</span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li class="active">
-                                    <a href="<?php echo site_url('operator/add');?>"><i class="fa fa-plus"></i> Add</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('operator/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
-                                </li>
-                            </ul>
-                        </li>
+                                <a href="#">
+                                    <i class="fa fa-desktop"></i> <span>Operator</span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li class="active">
+                                        <a href="<?php echo site_url('operator/add');?>"><i class="fa fa-plus"></i> Add</a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo site_url('operator/index');?>"><i class="fa fa-list-ul"></i> Listing</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="<?php echo site_url('states/index');?>"><i class="fa fa-list-ul"></i> States</a>
+                            </li>
                         </li>
                     </ul>
                 </section>

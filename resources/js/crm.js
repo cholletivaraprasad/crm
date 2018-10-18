@@ -14,3 +14,38 @@ $(".assignOperator").change(function(){
 		});
 	}
 });
+$("#lco_state").change(function(){
+	var state_name = $(this).val();
+	
+	if(state_name != "")
+	{
+		var urlpath = baseurl+"operator/getCitiesByState";
+      	$.ajax({
+
+	        type: "POST",
+
+	        url: urlpath,
+
+	        data: '&state_name='+state_name,
+
+	        success:function(cityInfo)
+	        {
+				var appendOpt='';
+				var appendOpt = '<option value="">Select City</option>';
+				if(cityInfo.length > 0)
+				{
+					for(i=0; i<cityInfo.length; i++) 
+					{
+						appendOpt += ("<option value="+cityInfo[i].location_name+">"+cityInfo[i].location_name+"</option>");    
+					}
+					$('select#lco_city').html(appendOpt);
+				}
+				else
+				{
+					$('select#lco_city').html(appendOpt);
+				}
+	        }
+
+      });
+	}
+});

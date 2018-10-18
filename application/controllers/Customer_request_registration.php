@@ -18,9 +18,30 @@ class Customer_request_registration extends CI_Controller{
     {
         $this->load->model('Operator_model');
         $data['operators'] = $this->Operator_model->get_all_operators();
-        $data['customer_request_registration'] = $this->Customer_request_registration_model->get_all_customer_request_registration();
-        $data['customer_request_registration'] = $this->Customer_request_registration_model->get_all_customer_request_registration();
+        $customer = $this->Customer_request_registration_model->getTableAllDataOrder("customer_request_registration","id","ASC");
+        $custArray = array();
+        if(@sizeOf($customer) > 0)
+        {
+            for ($i=0; $i < sizeOf($customer); $i++) 
+            { 
+                $custArray[$i] = array(
+                    "id" => $customer[$i]->id,
+                    "name" => $customer[$i]->name,
+                    "mobile" => $customer[$i]->mobile,
+                    "email" => $customer[$i]->email,
+                    "location" => $customer[$i]->location,
+                    "plans" => $customer[$i]->plans,
+                    "commets" => $customer[$i]->commets,
+                    "operator_id" => $customer[$i]->operator_id,
+                    "operatorsDetails" => $this->Customer_request_registration_model->getTableRowDataOrder("operators",array("id"=>$customer[$i]->operator_id),"id","ASC"),
+                );
+            }
+        }
         
+        $rec=array(
+            'customers' => $custArray,
+        );
+        $data['jsonObj'] = @json_encode($rec);
         $data['_view'] = 'customer_request_registration/index';
         $this->load->view('layouts/main',$data);
     }

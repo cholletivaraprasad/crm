@@ -57,4 +57,23 @@ class Customer_request_registration_model extends CI_Model
     {
         return $this->db->update($table,$params,$where);
     }
+    public function getTableAllDataOrder($table,$column,$order)
+    {
+        $this->db->select("*")->from($table)->order_by($column,$order);
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+        {
+            return $query->result();
+        }
+        else
+        {
+            return array();
+        }
+    }
+    public function getTableRowDataOrder($table,$where,$column,$order)
+    {
+        $this->db->where($where);
+        $this->db->order_by($column, $order);
+        return $this->db->get($table)->result_array();
+    }
 }

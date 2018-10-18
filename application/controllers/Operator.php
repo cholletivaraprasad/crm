@@ -9,6 +9,7 @@ class Operator extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Operator_model');
+        $this->load->model('Sql_model');
     } 
 
     /*
@@ -29,15 +30,17 @@ class Operator extends CI_Controller{
     {   
         $this->load->library('form_validation');
 
+        $this->form_validation->set_rules('lco_state','Lco State','required');
+		$this->form_validation->set_rules('lco_city','Lco City','required');
 		$this->form_validation->set_rules('lco_location','Lco Location','required|max_length[100]');
-		$this->form_validation->set_rules('lco_sublocation','Lco Sublocation','required|max_length[100]');
 		$this->form_validation->set_rules('lco_name','Lco Name','required|max_length[100]');
 		
 		if($this->form_validation->run())     
         {   
             $params = array(
-				'lco_location' => $this->input->post('lco_location'),
-				'lco_sublocation' => $this->input->post('lco_sublocation'),
+                'lco_state' => $this->input->post('lco_state'),
+				'lco_location' => $this->input->post('lco_city'),
+				'lco_sublocation' => $this->input->post('lco_location'),
 				'lco_name' => $this->input->post('lco_name'),
             );
             
@@ -45,7 +48,8 @@ class Operator extends CI_Controller{
             redirect('operator/index');
         }
         else
-        {            
+        { 
+            $data['statesList'] = $this->Sql_model->getTableAllDataOrder("states","id","DESC");           
             $data['_view'] = 'operator/add';
             $this->load->view('layouts/main',$data);
         }
@@ -57,22 +61,25 @@ class Operator extends CI_Controller{
     function edit($id)
     {   
         // check if the operator exists before trying to edit it
-        $data['operator'] = $this->Operator_model->get_operator($id);
-        
+        $operator = $this->Operator_model->get_operator($id);
+        $data['operator'] = $operator;
         if(isset($data['operator']['id']))
         {
             $this->load->library('form_validation');
 
-			$this->form_validation->set_rules('lco_location','Lco Location','required|max_length[100]');
-			$this->form_validation->set_rules('lco_sublocation','Lco Sublocation','required|max_length[100]');
-			$this->form_validation->set_rules('lco_name','Lco Name','required|max_length[100]');
+			 $this->form_validation->set_rules('lco_state','Lco State','required');
+            $this->form_validation->set_rules('lco_city','Lco City','required');
+            $this->form_validation->set_rules('lco_location','Lco Location','required|max_length[100]');
+            $this->form_validation->set_rules('lco_name','Lco Name','required|max_length[100]');
 		
 			if($this->form_validation->run())     
             {   
+
                 $params = array(
-					'lco_location' => $this->input->post('lco_location'),
-					'lco_sublocation' => $this->input->post('lco_sublocation'),
-					'lco_name' => $this->input->post('lco_name'),
+                    'lco_state' => $this->input->post('lco_state'),
+                    'lco_location' => $this->input->post('lco_city'),
+                    'lco_sublocation' => $this->input->post('lco_location'),
+                    'lco_name' => $this->input->post('lco_name'),
                 );
 
                 $this->Operator_model->update_operator($id,$params);            
@@ -80,6 +87,11 @@ class Operator extends CI_Controller{
             }
             else
             {
+                $data['statesList'] = $this->Sql_model->getTableAllDataOrder("states","id","DESC");
+                $state_name = @$operator['lco_state'];
+                @$stateInfo = $this->Sql_model->getTableRowDataOrder('states',array("state_name"=>$state_name),"id","DESC");
+                $stateId = @$stateInfo[0]->id;
+                $data['locationList'] = $this->Sql_model->getTableRowDataOrder("sub_locations",array("state_id"=>$stateId),"id","DESC");
                 $data['_view'] = 'operator/edit';
                 $this->load->view('layouts/main',$data);
             }
@@ -103,6 +115,32 @@ class Operator extends CI_Controller{
         }
         else
             show_error('The operator you are trying to delete does not exist.');
+    }
+    public function getCitiesByState()
+    {
+        $state_name = @$this->input->post("state_name");
+        if(@$state_name != '')
+        {
+            $this->load->model('Sql_model','', TRUE);   
+            header('Content-Type: application/x-json; charset=utf-8');
+           
+            $stateInfo = $this->Sql_model->getTableRowDataOrder('states',array("state_name"=>$state_name),"id","DESC");
+            $resultarray = array();
+            if(@sizeOf($stateInfo) > 0)
+            {
+                $stateId = @$stateInfo[0]->id;
+                $cityInfo = $this->Sql_model->getTableRowDataOrder('sub_locations',array("state_id"=>$stateId),"id","DESC");
+                for($a=0;$a<@sizeOf($cityInfo);$a++)
+                {
+                    $resultarray[$a]=array(
+                        'id'=>@$cityInfo[$a]->id,                
+                        'location_name'=>@ucwords($cityInfo[$a]->location_name),             
+                    );
+                }
+            }
+            $data['cityInfo']=$resultarray;
+            echo(json_encode($data['cityInfo']));
+        }
     }
     
 }
